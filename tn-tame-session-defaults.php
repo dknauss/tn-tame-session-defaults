@@ -38,7 +38,7 @@ function tn_set_session_length( int $seconds, int $user_id, bool $remember = fal
 add_filter( 'auth_cookie_expiration', 'tn_set_session_length', 10, 3 );
 
 /**
- * Destroy other sessions
+ * Destroy other sessions. (Enforce one session per user.)
  *
  * @param string  $username User name.
  * @param WP_User $user User object.
@@ -46,6 +46,7 @@ add_filter( 'auth_cookie_expiration', 'tn_set_session_length', 10, 3 );
  * @since 1.0.0
  **/
 function tn_session_limit( string $username, WP_User $user ): void {
+	// Return "true" to enable this function.
 	if ( apply_filters( 'tn_tame_session_limit', true, $user ) ) {
 		return;
 	}
